@@ -1,101 +1,133 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React, { useState } from 'react';
+import Navbar from '../Components/NavBar';
+import VideosDownloadingCard from '../Components/VideosDownloadingCard';
+import VideoCard from '../Components/VideoCard'
+import { FaYoutube } from "react-icons/fa6";
+import { FaFacebook } from "react-icons/fa6";
+import HMK_Logo from '../Components/Hmk_Logo'
+import AudioComponent from '../Components/AudioComponent'
+import ShowDownlaodingUI from '../Components/ShowDownloadingNotify';
+import FBVideoCard from '../Components/F_BVideo';
+
+export default function Component() {
+  const [isYouTubeCard, setIsYouTubeCard] = useState(true);
+  const [VideosData, setVideosData] = useState([]);
+  const [AudioData, setAudioData] = useState(null);
+  const [VideoName,setVideoName] = useState('')
+  const [IsShowDownloading,setIsShowDownloading] = useState(false)
+  const [FBVideoData , setFBVideoData] =  useState(null)
+const handleToggleYoutubeAndFaceBook =()=>{
+  setIsYouTubeCard(!isYouTubeCard)
+}
+
+console.log(VideosData,'in page');
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-purple-100 animate-gradient-x">
+        {/* Navigation */}
+        <Navbar />
+        {/* show Downloading UI div */ }
+        <div onClick={()=>setIsShowDownloading(!IsShowDownloading)} style={{zIndex :100}} className={`fixed ${IsShowDownloading ? 'top-5' : "-top-[100%]"} z-90 cursor-pointer duration-700 left-1/2 -translate-x-1/2 py-2 px-4 text-white font-bold bg-[#C17C31] rounded-3xl shadow-inner`}>
+          <ShowDownlaodingUI  IsShowDownloading={IsShowDownloading} setIsShowDownloading={setIsShowDownloading}/>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+        {/* FaceBook and Youtube toggle Here */}
+        <div
+          className='py-2 flex items-center cursor-pointer px-3 w-fit absolute left-2 '>
+          <FaYoutube className='inline text-4xl text-[#C17C31] mr-2 mb-[2px]' />
+          <div className="ToggleContainer">
+            <input onChange={handleToggleYoutubeAndFaceBook} type="checkbox" name="checkbox" id="checkbox" />
+            <label htmlFor="checkbox" className="label"> </label>
+          </div>
+          <FaFacebook className=' text-4xl text-[#C17C31] inline ml-2 mb-1' />
+        </div>
+
+        {/* Main Content */}
+        <main className="container mx-auto md:px-40 sm:px-20 px-30 py-12">
+          <div className="text-center max-w-full mx-auto">
+            <h1 className="text-4xl font-bold text-gray-800 mb-4 animate-fade-in-down">
+              Download videos for <span className='text-semibold text-[#C17C31]'>
+                {isYouTubeCard ? ' YouTube' : " FaceBook"}</span>
+              <span>{isYouTubeCard ? <FaYoutube className='inline text-red-600 ml-2 mb-[2px]' /> : <FaFacebook className='text-blue-500 inline ml-2 mb-1' />}</span> </h1>
+            <p className="text-gray-600 mb-12 animate-fade-in-up">
+              You can download online <span className='text-semibold text-[#C17C31]'>
+                {isYouTubeCard ? ' vidoes' : " reels"}</span>, convert online <span className='text-semibold text-[#C17C31]'>
+                {isYouTubeCard ? ' videos' : " reels"}</span> to mp3 for free.
+            </p>
+
+            {/* Download Form */}
+            <VideosDownloadingCard
+              isYouTubeCard={isYouTubeCard}
+              setVideosData={setVideosData}
+              setAudioData={setAudioData}
+              setVideoName={setVideoName}
+              FBVideoData={FBVideoData}
+              setFBVideoData={setFBVideoData}
+            />
+
+
+
+{/* Youtube video Showing here  */}
+
+            {VideosData?.length === 0 ? null : (
+              <>
+                <h2 className="text-3xl font-bold text-gray-800 mb-8">Popular Videos</h2>
+                <div className="grid w-full  grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                  {VideosData.map((video, index) =>
+                    <VideoCard 
+                    videoInfo={video} 
+                    VideoName={VideoName}
+                     key={index} 
+                     IsShowDownloading={IsShowDownloading}
+                     setIsShowDownloading={setIsShowDownloading}
+
+                     />
+                  )}
+                </div>
+              </>
+            )}
+
+{/* FaceBook videos showing therer */}
+
+{FBVideoData === null  ? null : (
+              <>
+                <h2 className="text-3xl font-bold text-gray-800 mb-8">Popular Videos</h2>
+                <div className="grid w-full  grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                 
+                 <FBVideoCard
+                  IsShowDownloading={IsShowDownloading}
+                  setIsShowDownloading={setIsShowDownloading}
+                 videoInfo={{link : FBVideoData.hd_video_url,quality : "1080 HD"} }/>
+                 <FBVideoCard
+                  IsShowDownloading={IsShowDownloading}
+                  setIsShowDownloading={setIsShowDownloading}
+                 videoInfo={{link : FBVideoData.sd_video_url,quality : "780 SD"} }/>
+                </div>
+              </>
+            )}
+
+
+            {AudioData !== null && AudioData !== undefined && (
+              <AudioComponent  
+              IsShowDownloading={IsShowDownloading}
+              setIsShowDownloading={setIsShowDownloading}
+              VideoName={VideoName} 
+              AudioData={AudioData}/>
+            )}
+
+
+
+            {/* Powered By */}
+            <div
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="flex  items-center justify-center gap-2 text-gray-600 mt-12">
+              <span>Powered By</span>
+              <HMK_Logo />
+            </div>
+          </div>
+        </main>
+      </div>
+    </>
+  )
 }
