@@ -27,7 +27,7 @@ const handleSearchVideo = async ()=>{
       setIsLoading(true)
 let YTData = await getYotubeData(URL);
 setVideoName(YTData.description)
-setVideosData(YTData.links.splice(1,6));
+setVideosData(YTData?.links?.splice(1,6));
 setAudioData(YTData.links[0])
 setIsLoading(false)
 setURL('');
