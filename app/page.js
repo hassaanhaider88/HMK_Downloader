@@ -74,7 +74,7 @@ console.log(VideosData,'in page');
               <>
                 <h2 className="text-3xl font-bold text-gray-800 mb-8">Popular Videos</h2>
                 <div className="grid w-full  grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                  {VideosData.map((video, index) =>
+                  {VideosData?.map((video, index) =>
                     <VideoCard 
                     videoInfo={video} 
                     VideoName={VideoName}
