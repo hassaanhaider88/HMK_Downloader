@@ -13,7 +13,8 @@ console.log(videoInfo);
 
 return (
 <div  className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-105">
-                <video controls  src={videoInfo.link} alt={videoInfo.title} className="w-full h-40 object-cover" />
+                <video controls 
+controls src={videoInfo.link} alt={videoInfo.title} className="w-full h-40 object-cover" />
                 <div className="p-4">
                   <div className="flex justify-between items-center">
                     <h3 className='text-lg font-semibold' >{VideoName}</h3>
